@@ -67,13 +67,8 @@ struct ContentView: View {
                                 restoreQuestion()
                             } label: {
                                 Image(Flag[index])
-                                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                            .strokeBorder(.white, lineWidth: 3)
-                                            .opacity(0.3)
-                                    }
-                                    .shadow(radius: 10)
+//                                    .modifier(FlagImage())
+                                    .flagImage()
                             }
                         }
                     }
@@ -115,6 +110,25 @@ struct ContentView: View {
             showAlert.toggle()
             score = 0
         }
+    }
+}
+
+struct FlagImage: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .strokeBorder(.white, lineWidth: 3)
+                    .opacity(0.3)
+            }
+            .shadow(radius: 10)
+    }
+}
+
+extension View {
+    func flagImage() -> some View {
+        modifier(FlagImage())
     }
 }
 
